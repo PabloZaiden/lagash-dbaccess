@@ -7,9 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const lagash_config_1 = require("lagash-config");
 const lagash_logger_1 = require("lagash-logger");
-const mySqlConnection_1 = require("./mysql/mySqlConnection");
 class RepositoryBase {
     constructor() {
         this.transaction = undefined;
@@ -19,16 +17,10 @@ class RepositoryBase {
         }
         this.logger = new lagash_logger_1.default("sql");
     }
-    static connect() {
+    static connect(connection) {
         return __awaiter(this, void 0, void 0, function* () {
             if (RepositoryBase.connection == undefined) {
-                RepositoryBase.connection = new mySqlConnection_1.default({
-                    host: lagash_config_1.default.get("mysqlHost"),
-                    user: lagash_config_1.default.get("mysqlUser"),
-                    password: lagash_config_1.default.get("mysqlPassword"),
-                    database: lagash_config_1.default.get("mysqlDb"),
-                    timezone: "utc"
-                });
+                RepositoryBase.connection = connection;
                 return RepositoryBase.connection.connect();
             }
         });

@@ -1,4 +1,4 @@
-import { DBQueryParameter } from "./dbServerConnection";
+import { DBQueryParameter, DBServerConnection } from "./dbServerConnection";
 import Logger from "lagash-logger";
 export default class RepositoryBase {
     private static connection;
@@ -6,7 +6,7 @@ export default class RepositoryBase {
     private transaction;
     private transactionedRepositories;
     constructor();
-    static connect(): Promise<void>;
+    static connect(connection: DBServerConnection): Promise<void>;
     dispose(): Promise<void>;
     beginTransaction(): Promise<void>;
     commitTransaction(): Promise<void>;

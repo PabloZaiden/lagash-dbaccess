@@ -19,16 +19,10 @@ export default class RepositoryBase {
         this.logger = new Logger("sql");
     }
 
-    static async connect(): Promise<void> {
+    static async connect(connection: DBServerConnection): Promise<void> {
         if (RepositoryBase.connection == undefined) {
             
-            RepositoryBase.connection = new MySqlConnection({
-                host: Config.get("mysqlHost"),
-                user: Config.get("mysqlUser"),
-                password: Config.get("mysqlPassword"),
-                database: Config.get("mysqlDb"),
-                timezone: "utc"
-            });
+            RepositoryBase.connection = connection;
             
             return RepositoryBase.connection.connect();
         }
