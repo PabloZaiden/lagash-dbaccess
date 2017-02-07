@@ -1,6 +1,6 @@
 {
   "name": "lagash-dbaccess",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "dbaccess abstractions for node",
   "main": "js/index.js",
   "typings": "js/index",
