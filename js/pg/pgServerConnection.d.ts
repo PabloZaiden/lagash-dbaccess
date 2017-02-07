@@ -1,5 +1,5 @@
 import { DBServerConnection, DBQueryParameter, DBTransaction } from "../dbServerConnection";
-export default class PGServerConnection implements DBServerConnection {
+export declare class PGServerConnection implements DBServerConnection {
     private pool;
     constructor(user: string, password: string, database: string, port: number);
     connect(): Promise<void>;

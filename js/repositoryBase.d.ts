@@ -1,6 +1,6 @@
 import { DBQueryParameter, DBServerConnection } from "./dbServerConnection";
 import Logger from "lagash-logger";
-export default class RepositoryBase {
+export declare class RepositoryBase {
     private static connection;
     protected logger: Logger;
     private transaction;

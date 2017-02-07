@@ -1,5 +1,5 @@
 import { DBServerConnection, DBQueryParameter, DBTransaction } from "../dbServerConnection";
-export default class SqlServerConnection implements DBServerConnection {
+export declare class SqlServerConnection implements DBServerConnection {
     private connection;
     private static loadParameters(request, queryParameters);
     constructor(user: string, password: string, server: string, database: string);

@@ -91,6 +91,5 @@ class RepositoryBase {
     }
 }
 RepositoryBase.connection = undefined;
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = RepositoryBase;
+exports.RepositoryBase = RepositoryBase;
 //# sourceMappingURL=repositoryBase.js.map

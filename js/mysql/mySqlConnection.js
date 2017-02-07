@@ -102,8 +102,7 @@ class MySqlConnection {
     }
 }
 MySqlConnection.placeholderMatcher = new RegExp("@([a-zA-Z0-9]+)", "g");
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = MySqlConnection;
+exports.MySqlConnection = MySqlConnection;
 function getConnection(pool) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve, reject) => {

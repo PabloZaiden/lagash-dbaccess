@@ -124,6 +124,5 @@ class SqlServerConnection {
         });
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = SqlServerConnection;
+exports.SqlServerConnection = SqlServerConnection;
 //# sourceMappingURL=sqlServerConnection.js.map

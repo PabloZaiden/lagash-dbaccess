@@ -2,10 +2,7 @@ import Config from "lagash-config";
 import { DBTransaction, DBQueryParameter, DBServerConnection } from "./dbServerConnection";
 import Logger from "lagash-logger";
 
-import SqlServerConnection from "./mssql/sqlServerConnection";
-import MySqlConnection from "./mysql/mySqlConnection";
-
-export default class RepositoryBase {
+export class RepositoryBase {
 
     private static connection: DBServerConnection = undefined;
     protected logger: Logger;

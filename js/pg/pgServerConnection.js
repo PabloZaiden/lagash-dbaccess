@@ -164,6 +164,5 @@ class PGServerConnection {
         });
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = PGServerConnection;
+exports.PGServerConnection = PGServerConnection;
 //# sourceMappingURL=pgServerConnection.js.map

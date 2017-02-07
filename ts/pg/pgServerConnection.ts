@@ -111,7 +111,7 @@ function getPoolFromTree(config: PGPoolConfig) {
     return poolsTree[config.user][config.password][config.database][config.port];
 }
 
-export default class PGServerConnection implements DBServerConnection {
+export class PGServerConnection implements DBServerConnection {
 
     private pool: any = undefined;
 

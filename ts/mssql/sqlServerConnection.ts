@@ -25,7 +25,7 @@ class SqlServerTransaction implements DBTransaction {
     }
 }
 
-export default class SqlServerConnection implements DBServerConnection {
+export class SqlServerConnection implements DBServerConnection {
 
     private connection: MSSQL.Connection;
 

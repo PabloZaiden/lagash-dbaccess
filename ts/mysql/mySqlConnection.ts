@@ -2,7 +2,7 @@ import { DBServerConnection, DBQueryParameter, DBTransaction } from "../dbServer
 import * as MySQL from "mysql";
 import Logger from "lagash-logger";
 
-export default class MySqlConnection implements DBServerConnection {
+export class MySqlConnection implements DBServerConnection {
     private pool: MySQL.IPool;
     private static placeholderMatcher = new RegExp("@([a-zA-Z0-9]+)", "g");
 

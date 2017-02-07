@@ -1,6 +1,6 @@
 import { DBServerConnection, DBQueryParameter, DBTransaction } from "../dbServerConnection";
 import * as MySQL from "mysql";
-export default class MySqlConnection implements DBServerConnection {
+export declare class MySqlConnection implements DBServerConnection {
     private pool;
     private static placeholderMatcher;
     constructor(config: MySQL.IPoolConfig);
