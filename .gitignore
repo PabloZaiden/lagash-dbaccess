@@ -44,3 +44,5 @@ ts/*.js
 
 typings
 tsd.json
+
+.DS_Store
