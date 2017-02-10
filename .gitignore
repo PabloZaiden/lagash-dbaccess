@@ -46,3 +46,5 @@ typings
 tsd.json
 
 .DS_Store
+
+yarn.lock
