@@ -25,6 +25,16 @@ class SqlServerTransaction implements DBTransaction {
     }
 }
 
+export class SqlServerConnectionOptions {
+    user: string;
+    password: string;
+    server: string;
+    database: string;
+
+    port?: number;
+    encrypt?: boolean;
+}
+
 export class SqlServerConnection implements DBServerConnection {
 
     private connection: MSSQL.Connection;
@@ -59,21 +69,26 @@ export class SqlServerConnection implements DBServerConnection {
         }
     }
 
-    constructor(user: string, password: string, server: string, database: string) {
-        let config = {
-            user: user,
-            password: password,
-            server: server,
-            database: database,
+    constructor(options: SqlServerConnectionOptions) {
+
+        let config: any = {
+            user: options.user,
+            password: options.password,
+            server: options.server,
+            database: options.database,
+            port: options.port,
             pool: {
                 max: 30,
                 min: 0,
                 idleTimeoutMillis: 30000
             },
-            options: {
+        };
+
+        if (options.encrypt) {
+            config.options = {
                 encrypt: true
             }
-        };
+        }
 
         this.connection = new MSSQL.Connection(config);
     }

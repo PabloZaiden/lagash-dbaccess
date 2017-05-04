@@ -1,12 +1,15 @@
 import { DBQueryParameter, DBServerConnection } from "./dbServerConnection";
 import Logger from "lagash-logger";
 export declare class RepositoryBase {
-    private static connection;
+    private static defaultConnectionName;
+    private static connections;
     protected logger: Logger;
     private transaction;
     private transactionedRepositories;
-    constructor();
-    static connect(connection: DBServerConnection): Promise<void>;
+    private connectionName;
+    constructor(connectionName?: string);
+    static connect(connection: DBServerConnection, connectionName?: string): Promise<void>;
+    private getConnection();
     dispose(): Promise<void>;
     beginTransaction(): Promise<void>;
     commitTransaction(): Promise<void>;
