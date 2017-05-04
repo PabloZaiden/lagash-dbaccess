@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const MSSQL = require("mssql");
 class SqlServerTransaction {
     getInternalTransaction() {
@@ -31,6 +32,9 @@ class SqlServerTransaction {
         this.transaction = new MSSQL.Transaction(connection);
     }
 }
+class SqlServerConnectionOptions {
+}
+exports.SqlServerConnectionOptions = SqlServerConnectionOptions;
 class SqlServerConnection {
     static loadParameters(request, queryParameters) {
         if (queryParameters != undefined) {
@@ -59,21 +63,24 @@ class SqlServerConnection {
             }
         }
     }
-    constructor(user, password, server, database) {
+    constructor(options) {
         let config = {
-            user: user,
-            password: password,
-            server: server,
-            database: database,
+            user: options.user,
+            password: options.password,
+            server: options.server,
+            database: options.database,
+            port: options.port,
             pool: {
                 max: 30,
                 min: 0,
                 idleTimeoutMillis: 30000
             },
-            options: {
-                encrypt: true
-            }
         };
+        if (options.encrypt) {
+            config.options = {
+                encrypt: true
+            };
+        }
         this.connection = new MSSQL.Connection(config);
     }
     connect() {

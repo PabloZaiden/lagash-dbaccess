@@ -1,8 +1,16 @@
 import { DBServerConnection, DBQueryParameter, DBTransaction } from "../dbServerConnection";
+export declare class SqlServerConnectionOptions {
+    user: string;
+    password: string;
+    server: string;
+    database: string;
+    port?: number;
+    encrypt?: boolean;
+}
 export declare class SqlServerConnection implements DBServerConnection {
     private connection;
     private static loadParameters(request, queryParameters);
-    constructor(user: string, password: string, server: string, database: string);
+    constructor(options: SqlServerConnectionOptions);
     connect(): Promise<void>;
     createTransaction(): DBTransaction;
     close(): Promise<void>;

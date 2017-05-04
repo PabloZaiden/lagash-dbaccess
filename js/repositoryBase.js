@@ -7,23 +7,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const lagash_logger_1 = require("lagash-logger");
 class RepositoryBase {
-    constructor() {
+    constructor(connectionName = RepositoryBase.defaultConnectionName) {
         this.transaction = undefined;
         this.transactionedRepositories = [];
-        if (RepositoryBase.connection == undefined) {
+        if (RepositoryBase.connections[connectionName] == undefined) {
             throw new Error("Connection has not been initialized! (Have you called RepositoryBase.connect() before creating a new instance?)");
         }
+        this.connectionName = connectionName;
         this.logger = new lagash_logger_1.default("sql");
     }
-    static connect(connection) {
+    static connect(connection, connectionName = RepositoryBase.defaultConnectionName) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (RepositoryBase.connection == undefined) {
-                RepositoryBase.connection = connection;
-                return RepositoryBase.connection.connect();
+            if (RepositoryBase.connections[connectionName] == undefined) {
+                RepositoryBase.connections[connectionName] = connection;
+                return RepositoryBase.connections[connectionName].connect();
             }
         });
+    }
+    getConnection() {
+        return RepositoryBase.connections[this.connectionName];
     }
     dispose() {
         return __awaiter(this, void 0, void 0, function* () { });
@@ -32,7 +37,7 @@ class RepositoryBase {
         if (this.transaction != undefined) {
             throw new Error("Transaction already in progress.");
         }
-        this.transaction = RepositoryBase.connection.createTransaction();
+        this.transaction = this.getConnection().createTransaction();
         this.transactionedRepositories.push(this);
         return this.transaction.begin();
     }
@@ -65,6 +70,9 @@ class RepositoryBase {
         if (this.transaction == undefined) {
             throw new Error("There is no current transaction.");
         }
+        if (repository.connectionName != this.connectionName) {
+            throw new Error("Both repositories must use the same connection");
+        }
         repository.transaction = this.transaction;
         this.transactionedRepositories.push(repository);
         repository.transactionedRepositories = this.transactionedRepositories;
@@ -72,24 +80,25 @@ class RepositoryBase {
     execute(query, ...queryParameters) {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.transaction != undefined) {
-                return RepositoryBase.connection.executeInTransaction(this.transaction, query, ...queryParameters);
+                return this.getConnection().executeInTransaction(this.transaction, query, ...queryParameters);
             }
             else {
-                return RepositoryBase.connection.execute(query, ...queryParameters);
+                return this.getConnection().execute(query, ...queryParameters);
             }
         });
     }
     executeNonQuery(query, ...queryParameters) {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.transaction != undefined) {
-                return RepositoryBase.connection.executeNonQueryInTransaction(this.transaction, query, ...queryParameters);
+                return this.getConnection().executeNonQueryInTransaction(this.transaction, query, ...queryParameters);
             }
             else {
-                return RepositoryBase.connection.executeNonQuery(query, ...queryParameters);
+                return this.getConnection().executeNonQuery(query, ...queryParameters);
             }
         });
     }
 }
-RepositoryBase.connection = undefined;
+RepositoryBase.defaultConnectionName = "default";
+RepositoryBase.connections = {};
 exports.RepositoryBase = RepositoryBase;
 //# sourceMappingURL=repositoryBase.js.map

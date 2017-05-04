@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class DBQueryParameter {
     constructor(name, value, type) {
         this.name = name;
