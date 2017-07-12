@@ -76,7 +76,7 @@ class PGTransaction {
         });
     }
 }
-let placeholderMatcher = new RegExp("@([A-Za-z_]\w*?)", "g");
+let placeholderMatcher = new RegExp("@([a-zA-Z0-9]+)", "g");
 let poolsTree = {};
 function getPoolFromTree(config) {
     if (poolsTree[config.user] == undefined) {
@@ -130,7 +130,7 @@ class PGServerConnection {
                     throw new Error();
                 }
                 parametersArray.push(parametersDictionary[param].value);
-                return `{${parametersArray.length}}`;
+                return `$${parametersArray.length}`;
             });
             return new Promise((resolve, reject) => {
                 queriableObject.query(query, parametersArray, (err, res) => {
